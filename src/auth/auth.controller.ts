@@ -1,5 +1,6 @@
 import {
   // ValidationPipe,
+  UseGuards,
   UsePipes,
   Controller,
   Get,
@@ -17,11 +18,13 @@ import {
 import { AuthService } from './auth.service';
 import { CreateUserDTO } from '../user/create-user.dto';
 import { ValidationPipe } from '../validation-pipe';
+import { LocalAuthGuard } from './local-auth.guard';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @UseGuards(LocalAuthGuard)
   @Post('signin')
   @HttpCode(HttpStatus.OK)
   async signIn(@Body('email') email, @Body('password') password): Promise<any> {

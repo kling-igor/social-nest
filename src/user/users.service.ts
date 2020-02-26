@@ -9,12 +9,22 @@ import { UserDTO } from './user.dto';
 
 import { v4 as uuidv4 } from 'uuid';
 
-const usersFakeCollection = [];
+const usersFakeCollection: UserDTO[] = [
+  {
+    id: '0',
+    email: 'jd@example.com',
+    password: 'pass',
+    firstName: 'John',
+    lastName: 'Dow',
+  },
+];
 
 @Injectable()
 export class UsersService {
+  private readonly usersFakeCollection: UserDTO[];
+
   async createUser(createUserDTO: CreateUserDTO): Promise<UserDTO> {
-    const found = usersFakeCollection.find(
+    const found = this.usersFakeCollection.find(
       ({ email }) => email === createUserDTO.email,
     );
 
@@ -25,6 +35,7 @@ export class UsersService {
     const newRecord: UserDTO = {
       id: uuidv4(),
       email: createUserDTO.email,
+      password: createUserDTO.password,
       firstName: createUserDTO.firstName,
       lastName: createUserDTO.lastName,
     };

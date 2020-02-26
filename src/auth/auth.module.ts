@@ -7,6 +7,7 @@ import { AuthController } from './auth.controller';
 import { UserModule } from '../user/user.module';
 import { UsersService } from '../user/users.service';
 import { JwtStrategy } from './jwt.strategy';
+import { LocalStrategy } from './local.strategy';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { JwtStrategy } from './jwt.strategy';
   providers: [
     AuthService,
     JwtStrategy,
+    LocalStrategy,
     UsersService /* it is odd to add this here in explicit way, why it shouldn't be imported from UserModule as the last is in imports section ? */,
   ],
   controllers: [AuthController],

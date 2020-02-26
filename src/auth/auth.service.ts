@@ -8,6 +8,7 @@ import { UsersService } from '../user/users.service';
 
 import { CreateUserDTO } from '../user/create-user.dto';
 import { UserDTO } from '../user/user.dto';
+import { SignedInUserDTO } from '../user/signedin-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -16,12 +17,23 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signIn(email: string, password: string) {
-    const found: UserDTO = await this.usersService.getUserByEmail(email);
+  async validateUser(email: string, password: string): Promise<any> {
+    const user = await this.usersService.getUserByEmail(email);
+    // TODO: should compare password hashes!!!
+    if (user && user.password === password) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, ...result } = user;
+      return result;
+    }
+    return null;
+  }
 
-    if (!found) throw new NotFoundException('Not found');
+  async signIn(email: string, password: string): Promise<SignedInUserDTO> {
+    const user: UserDTO = await this.validateUser(email, password);
 
-    const payload = { userId: found.id };
+    if (!user) throw new NotFoundException('Not found');
+
+    const payload = { userId: user.id };
     return { token: this.jwtService.sign(payload) };
   }
 

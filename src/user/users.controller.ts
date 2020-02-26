@@ -23,11 +23,13 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Get('/me')
+  @Get('me')
   async getProfile(@Request() req): Promise<UserDTO> {
     const {
       user: { userId },
     } = req;
-    return await this.usersService.getUserById(userId);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...rest } = await this.usersService.getUserById(userId);
+    return rest;
   }
 }
