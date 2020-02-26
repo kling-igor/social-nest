@@ -3,7 +3,7 @@ import {
   NotFoundException,
   ConflictException,
 } from '@nestjs/common';
-// import { JwtService } from '@nestjs/jwt';
+import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../user/users.service';
 
 import { CreateUserDTO } from '../user/create-user.dto';
@@ -12,7 +12,8 @@ import { UserDTO } from '../user/user.dto';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: UsersService /*private readonly jwtService: JwtService,*/,
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
   ) {}
 
   async signIn(email: string, password: string) {
@@ -20,9 +21,8 @@ export class AuthService {
 
     if (!found) throw new NotFoundException('Not found');
 
-    const { id: userId } = found;
-
-    return { userId };
+    const payload = { userId: found.id };
+    return { token: this.jwtService.sign(payload) };
   }
 
   async signUp(user: CreateUserDTO) {
