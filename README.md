@@ -23,8 +23,9 @@ $ npm run start:prod
 - [x] User Controller
 - [x] Dummy Users Service
 - [x] CRUD operations with fake store
-- [ ] Auth Module
-- [ ] Auth Controller
+- [x] Class Validator
+- [x] Auth Module
+- [x] Auth Controller
 - [ ] JWT / Passport Routes protection
 - [ ] Mongoose aware User Service
 - [ ] Swagger API
