@@ -31,7 +31,10 @@ export class AuthService {
   async signIn(email: string, password: string): Promise<SignedInUserDTO> {
     const user: UserDTO = await this.validateUser(email, password);
 
-    if (!user) throw new NotFoundException('Not found');
+    if (!user)
+      throw new NotFoundException(
+        `User with email ${email} not found or password is wrong`,
+      );
 
     const payload = { userId: user.id };
     return { token: this.jwtService.sign(payload) };
@@ -40,7 +43,10 @@ export class AuthService {
   async signUp(user: CreateUserDTO) {
     const found: UserDTO = await this.usersService.getUserByEmail(user.email);
 
-    if (found) throw new ConflictException('User exists');
+    if (found)
+      throw new ConflictException(
+        `User with email <${user.email}> already exists`,
+      );
 
     return await this.usersService.createUser(user);
   }

@@ -9,22 +9,20 @@ import { UserDTO } from './user.dto';
 
 import { v4 as uuidv4 } from 'uuid';
 
-const usersFakeCollection: UserDTO[] = [
-  {
-    id: '0',
-    email: 'jd@example.com',
-    password: 'pass',
-    firstName: 'John',
-    lastName: 'Dow',
-  },
-];
-
 @Injectable()
 export class UsersService {
-  private readonly usersFakeCollection: UserDTO[];
+  private readonly USER_FAKE_COLLECTION: UserDTO[] = [
+    {
+      id: '0',
+      email: 'jd@example.com',
+      password: 'pass',
+      firstName: 'John',
+      lastName: 'Dow',
+    },
+  ];
 
   async createUser(createUserDTO: CreateUserDTO): Promise<UserDTO> {
-    const found = this.usersFakeCollection.find(
+    const found = this.USER_FAKE_COLLECTION.find(
       ({ email }) => email === createUserDTO.email,
     );
 
@@ -40,16 +38,16 @@ export class UsersService {
       lastName: createUserDTO.lastName,
     };
 
-    usersFakeCollection.push(newRecord);
+    this.USER_FAKE_COLLECTION.push(newRecord);
 
     return newRecord;
   }
 
   async getUserById(id: string): Promise<UserDTO> {
-    return await usersFakeCollection.find(user => user.id === id);
+    return await this.USER_FAKE_COLLECTION.find(user => user.id === id);
   }
 
   async getUserByEmail(email: string): Promise<UserDTO> {
-    return usersFakeCollection.find(user => user.email === email);
+    return this.USER_FAKE_COLLECTION.find(user => user.email === email);
   }
 }

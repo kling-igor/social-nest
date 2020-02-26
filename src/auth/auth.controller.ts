@@ -17,7 +17,6 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDTO } from '../user/create-user.dto';
-import { ValidationPipe } from '../validation-pipe';
 import { LocalAuthGuard } from './local-auth.guard';
 
 @Controller('auth')
@@ -33,7 +32,6 @@ export class AuthController {
 
   @Post('signup')
   @HttpCode(HttpStatus.CREATED)
-  @UsePipes(ValidationPipe)
   async signUp(@Body() createUserDTO: CreateUserDTO): Promise<any> {
     return this.authService.signUp(createUserDTO);
   }
