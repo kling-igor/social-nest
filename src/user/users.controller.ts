@@ -1,6 +1,7 @@
 import {
   UseGuards,
   Controller,
+  Request,
   Get,
   Res,
   HttpStatus,
@@ -23,7 +24,10 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Get('/me')
-  async getProfile(): Promise<UserDTO> {
-    return this.usersService.getUserById('42');
+  async getProfile(@Request() req): Promise<UserDTO> {
+    const {
+      user: { userId },
+    } = req;
+    return await this.usersService.getUserById(userId);
   }
 }

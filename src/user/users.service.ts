@@ -31,13 +31,11 @@ export class UsersService {
 
     usersFakeCollection.push(newRecord);
 
-    console.log(usersFakeCollection);
-
     return newRecord;
   }
 
   async getUserById(id: string): Promise<UserDTO> {
-    return usersFakeCollection.find(user => user.id === id);
+    return await usersFakeCollection.find(user => user.id === id);
   }
 
   async getUserByEmail(email: string): Promise<UserDTO> {
