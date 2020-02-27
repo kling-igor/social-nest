@@ -9,12 +9,14 @@ async function bootstrap() {
     bodyParser: true,
   });
 
+  const configService = app.get(ConfigService);
+
+  app.setGlobalPrefix(configService.get<string>('APP_ROUTE_PREFIX'));
+
   app.useGlobalPipes(
     new ValidationPipe({ transform: true, disableErrorMessages: false }),
   );
 
-  const configService = app.get(ConfigService);
-
-  await app.listen(configService.get('APP_PORT'));
+  await app.listen(configService.get<number>('APP_PORT'));
 }
 bootstrap();
