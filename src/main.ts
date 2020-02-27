@@ -1,13 +1,20 @@
 import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
-import { ValidationPipe } from './validation-pipe';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bodyParser: true,
   });
-  app.useGlobalPipes(new ValidationPipe());
-  await app.listen(process.env.APP_PORT);
+
+  app.useGlobalPipes(
+    new ValidationPipe({ transform: true, disableErrorMessages: false }),
+  );
+
+  const configService = app.get(ConfigService);
+
+  await app.listen(configService.get('APP_PORT'));
 }
 bootstrap();
