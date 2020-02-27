@@ -29,5 +29,5 @@ $ npm run start:prod
 - [x] JWT / Passport Routes protection
 - [x] Serialization
 - [x] Configuration - WIP
-- [ ] Mongoose aware User Service
+- [x] Mongoose aware User Service
 - [ ] Swagger API

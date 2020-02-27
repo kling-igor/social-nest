@@ -15,7 +15,7 @@ import {
   ClassSerializerInterceptor,
   UseInterceptors,
 } from '@nestjs/common';
-import { UserEntity } from './user.entity';
+import { UserDTO } from './user.dto';
 import { UsersService } from './users.service';
 import { CurrentUser } from './user.decorator';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -27,7 +27,7 @@ export class UsersController {
   @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(JwtAuthGuard)
   @Get('me')
-  async getProfile(@CurrentUser('userId') userId: string): Promise<UserEntity> {
+  async getProfile(@CurrentUser('userId') userId: string): Promise<UserDTO> {
     return await this.usersService.getUserById(userId);
   }
 }

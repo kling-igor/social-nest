@@ -7,7 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../user/users.service';
 
 import { CreateUserDTO } from '../user/create-user.dto';
-import { UserEntity } from '../user/user.entity';
+import { UserDTO } from '../user/user.dto';
 import { SignedInUserDTO } from '../user/signedin-user.dto';
 
 @Injectable()
@@ -17,8 +17,11 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.usersService.getUserByEmail(email);
+  async validateUser(
+    email: string,
+    password: string,
+  ): Promise<Partial<UserDTO>> {
+    const user: UserDTO = await this.usersService.getUserByEmail(email);
     // TODO: should compare password hashes!!!
     if (user && user.password === password) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -29,7 +32,7 @@ export class AuthService {
   }
 
   async signIn(email: string, password: string): Promise<SignedInUserDTO> {
-    const user: UserEntity = await this.validateUser(email, password);
+    const user = await this.validateUser(email, password);
 
     if (!user)
       throw new NotFoundException(
@@ -41,9 +44,7 @@ export class AuthService {
   }
 
   async signUp(user: CreateUserDTO) {
-    const found: UserEntity = await this.usersService.getUserByEmail(
-      user.email,
-    );
+    const found: UserDTO = await this.usersService.getUserByEmail(user.email);
 
     if (found)
       throw new ConflictException(
