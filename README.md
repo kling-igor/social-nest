@@ -17,6 +17,12 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Swagger
+
+```
+http://localhost:${APP_PORT}/api/
+```
+
 ## Roadmap
 
 - [x] User Module
@@ -30,4 +36,4 @@ $ npm run start:prod
 - [x] Serialization
 - [x] Configuration - WIP
 - [x] Mongoose aware User Service
-- [ ] Swagger API
+- [x] Swagger API
