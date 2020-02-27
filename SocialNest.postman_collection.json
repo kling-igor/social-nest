@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "9b792cdb-5106-4ec5-b9a1-27594754ab5c",
+		"name": "SocialNest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SignUp",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"jd2@example.com\",\n\t\"password\": \"pass\",\n\t\"firstName\":\"John2\",\n\t\"lastName\": \"Dow\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/auth/signup",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth",
+						"signup"
+					]
+				},
+				"description": "Creating a new user account"
+			},
+			"response": []
+		},
+		{
+			"name": "SignIn",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"jd2@example.com\",\n\t\"password\": \"pass\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/auth/signin",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth",
+						"signin"
+					]
+				},
+				"description": "Creating a new user account"
+			},
+			"response": []
+		},
+		{
+			"name": "Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwOGVmNTVlNS1kN2NiLTQwM2MtYjQ3YS00MjhhMzhmNzExNmQiLCJpYXQiOjE1ODI3ODI5MTQsImV4cCI6MTU4Mjc4Mjk3NH0.RGNNpWmma6hk15_E0UL1fqvDMNetFfNR_wBysXWSa78",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/users/me",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f5e4d0e3-dabe-4e49-bc00-70fcb7037e20",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "77eb717c-4417-46d2-9051-7a7e107fc125",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "05f7fbe6-7bab-414b-a7f1-2908abdeea0f",
+			"key": "host",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
