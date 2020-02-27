@@ -1,6 +1,6 @@
 import { Exclude } from 'class-transformer';
 
-export class UserDTO {
+export class UserEntity {
   readonly id: string;
 
   readonly email: string;
@@ -12,7 +12,7 @@ export class UserDTO {
 
   readonly lastName: string;
 
-  constructor(partial: Partial<UserDTO>) {
+  constructor(partial: Partial<UserEntity>) {
     Object.assign(this, partial);
   }
 }

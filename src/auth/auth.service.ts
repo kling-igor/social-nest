@@ -7,7 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../user/users.service';
 
 import { CreateUserDTO } from '../user/create-user.dto';
-import { UserDTO } from '../user/user.dto';
+import { UserEntity } from '../user/user.entity';
 import { SignedInUserDTO } from '../user/signedin-user.dto';
 
 @Injectable()
@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   async signIn(email: string, password: string): Promise<SignedInUserDTO> {
-    const user: UserDTO = await this.validateUser(email, password);
+    const user: UserEntity = await this.validateUser(email, password);
 
     if (!user)
       throw new NotFoundException(
@@ -41,7 +41,9 @@ export class AuthService {
   }
 
   async signUp(user: CreateUserDTO) {
-    const found: UserDTO = await this.usersService.getUserByEmail(user.email);
+    const found: UserEntity = await this.usersService.getUserByEmail(
+      user.email,
+    );
 
     if (found)
       throw new ConflictException(
