@@ -12,6 +12,8 @@ import {
   Query,
   Put,
   Delete,
+  ClassSerializerInterceptor,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UserDTO } from './user.dto';
 import { UsersService } from './users.service';
@@ -22,11 +24,10 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(JwtAuthGuard)
   @Get('me')
   async getProfile(@CurrentUser('userId') userId: string): Promise<UserDTO> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...rest } = await this.usersService.getUserById(userId);
-    return rest;
+    return await this.usersService.getUserById(userId);
   }
 }

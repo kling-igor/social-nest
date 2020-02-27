@@ -12,13 +12,13 @@ import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export class UsersService {
   private readonly USER_FAKE_COLLECTION: UserDTO[] = [
-    {
-      id: '0',
+    new UserDTO({
+      id: uuidv4(),
       email: 'jd@example.com',
       password: 'pass',
       firstName: 'John',
       lastName: 'Dow',
-    },
+    }),
   ];
 
   async createUser(createUserDTO: CreateUserDTO): Promise<UserDTO> {
@@ -30,13 +30,15 @@ export class UsersService {
       throw new ConflictException('Already exists');
     }
 
-    const newRecord: UserDTO = {
+    const { email, password, firstName, lastName } = createUserDTO;
+
+    const newRecord: UserDTO = new UserDTO({
       id: uuidv4(),
-      email: createUserDTO.email,
-      password: createUserDTO.password,
-      firstName: createUserDTO.firstName,
-      lastName: createUserDTO.lastName,
-    };
+      email,
+      password,
+      firstName,
+      lastName,
+    });
 
     this.USER_FAKE_COLLECTION.push(newRecord);
 

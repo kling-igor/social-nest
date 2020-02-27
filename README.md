@@ -27,6 +27,7 @@ $ npm run start:prod
 - [x] Auth Module
 - [x] Auth Controller
 - [x] JWT / Passport Routes protection
-- [x] Configuration
+- [x] Serialization
+- [x] Configuration - WIP
 - [ ] Mongoose aware User Service
 - [ ] Swagger API
